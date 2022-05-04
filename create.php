@@ -1,3 +1,24 @@
+<?php
+    require 'db.php';
+    $message = '';
+    if (isset($_POST['name']) && isset($_POST['address']) && 
+        isset($_POST['email']) && 
+            isset($_POST['phone_number'])) {
+                $name = $_POST['name'];
+                $address = $_POST['address'];
+                $email = $_POST['email'];
+                $phone_number = $_POST['phone_number'];
+
+                $sql = 'INSERT INTO profile(name, address, email, phone_number) 
+                VALUES(:name, :address, :email, :phone_number)';
+
+                $statement = $connection->prepare($sql);
+                if ($statement->execute([':name' => $name, ':address' => $address, ':email' => $email, ':phone_number' => $phone_number])) {
+                    $message = 'Data inserted successfully';
+                }
+            }
+?>
+
 <?php require 'header.php'; ?>
     <div class="container">
         <div class="card mt-5">
@@ -27,6 +48,11 @@
                         
                     </div>
                 </form>
+                <?php if (!empty($message)): ?>
+                <div class="alert alert-success">
+                    <?= $message; ?>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
         
