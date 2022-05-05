@@ -30,7 +30,7 @@
                         <td><?= $user->address ;?></td>
                         <td><?= $user->email ;?></td>
                         <td><?= $user->phone_number ;?></td>
-                        <td><?= $user->image ;?></td>
+                        <td><img class="rounded-circle" src="image/<?= $user->image; ?>" alt="User's photo" width="100px" height="100px"></td>
                         <td>
                             <a href="edit.php?id=<?= $user->id; ?>" class="btn btn-info">Edit</a>
                             <a onclick="return confirm('Are you sure you want to delete this user\'s profile?')" href="delete.php?id=<?= $user->id; ?>" class="btn btn-danger">Delete</a>

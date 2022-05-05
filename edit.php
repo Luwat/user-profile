@@ -17,6 +17,7 @@
                 $image = $_FILES['image']['name'];
                 $tempname = $_FILES['image']['tmp_name'];
                 $folder = 'image/'.$image;
+                move_uploaded_file($tempname, $folder);
 
                 $sql = 'UPDATE profile SET name=:name, address=:address, 
                 email=:email, phone_number=:phone_number, image=:image WHERE id=:id';

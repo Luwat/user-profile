@@ -11,7 +11,7 @@
                 $image = $_FILES['image']['name'];
                 $tempname = $_FILES['image']['tmp_name'];
                 $folder = 'image/'.$image;
-
+                move_uploaded_file($tempname, $folder);
                 $sql = 'INSERT INTO profile(name, address, email, phone_number, image) 
                 VALUES(:name, :address, :email, :phone_number, :image)';
 
