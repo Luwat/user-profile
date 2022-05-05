@@ -9,17 +9,20 @@
 
     if (isset($_POST['name']) && isset($_POST['address']) && 
         isset($_POST['email']) && 
-            isset($_POST['phone_number'])) {
+            isset($_POST['phone_number']) && isset($_FILES['image'])) {
                 $name = $_POST['name'];
                 $address = $_POST['address'];
                 $email = $_POST['email'];
                 $phone_number = $_POST['phone_number'];
+                $image = $_FILES['image']['name'];
+                $tempname = $_FILES['image']['tmp_name'];
+                $folder = 'image/'.$image;
 
                 $sql = 'UPDATE profile SET name=:name, address=:address, 
-                email=:email, phone_number=:phone_number WHERE id=:id';
+                email=:email, phone_number=:phone_number, image=:image WHERE id=:id';
 
                 $statement = $connection->prepare($sql);
-                if ($statement->execute([':name' => $name, ':address' => $address, ':email' => $email, ':phone_number' => $phone_number, ':id' => $id])) {
+                if ($statement->execute([':name' => $name, ':address' => $address, ':email' => $email, ':phone_number' => $phone_number, ':image' => $image, ':id' => $id])) {
                     header('Location: /user-profile/');
                 }
             }
@@ -32,7 +35,7 @@
                 <h2>Update Profile</h2>
             </div>
             <div class="card-body">
-                <form  method="post">
+                <form  method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" value="<?= $user->name; ?>" name="name" id="name" class="form-control">
@@ -48,6 +51,10 @@
                     <div class="form-group">
                         <label for="phone-number">Phone Number:</label>
                         <input type="number" value="<?= $user->phone_number; ?>" name="phone_number" id="phone_number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image:</label>
+                        <input type="file" value="<?= $user->image; ?>" name="image" id="image" class="form-control">
                     </div>
                     <div class="form-group mt-3">
                         <button type="submit" class="btn btn-info">Update Profile</button>
